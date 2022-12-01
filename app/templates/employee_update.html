@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <div class="card">
+    <form method="POST" action="{{ url_for('employee_update', id=employee.id) }}">
+        {{ form.csrf_token }}
+        <div class="card-header">
+            <h2>Изменение клиента</h2>
+        </div>
+        <div class="content-inside">
+             {% for field in form %}
+  <div class="form-group">
+      {% if field.widget.input_type != 'hidden' %}
+    {{ field.label }}
+      {% endif %}
+      {{ field(class='form-control')}}
+      {% if field.errors %}
+      {% for error in field.errors %}
+    <small id="emailHelp" class="form-text text-muted">{{ error }}</small>
+      {% endfor %}
+      {% endif %}
+  </div>
+    {% endfor %}
+  <button type="submit" class="btn btn-primary">Сохранить</button>
+        </div>
+    </form>
+  </div>
+</div>
+{% endblock content %}
